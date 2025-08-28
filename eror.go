@@ -21,7 +21,7 @@ func CreateUser(firstName, lastName string, age int) (*User, error) {
 		return nil, errors.New("фамилия не может быть пустой")
 	}
 
-	if age <= 18 {
+	if age < 18 { // строго меньше 18
 		return nil, errors.New("пользователь должен быть старше 18 лет")
 	}
 
@@ -35,16 +35,17 @@ func CreateUser(firstName, lastName string, age int) (*User, error) {
 }
 
 func main() {
-
-	user, err := CreateUser("Arafat", "Abdukarimov", 25)
+	user, err := CreateUser("Arafat", "Abdukarimov", 16)
 	if err != nil {
 		fmt.Println(err)
-		return
+	} else {
+		fmt.Printf("Пользователь [%s %s] успешно создан\n", user.FirstName, user.LastName)
 	}
-	fmt.Printf("Пользователь [%s %s] успешно создан\n", user.FirstName, user.LastName)
 
-	_, err2 := CreateUser("Pupkina", "Zalu", 16)
+	user, err2 := CreateUser("Pupkina", "Zalu", 111)
 	if err2 != nil {
 		fmt.Println(err2)
+	} else {
+		fmt.Printf("Пользователь [%s %s] успешно создан\n", user.FirstName, user.LastName)
 	}
 }
